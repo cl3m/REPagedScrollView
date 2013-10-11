@@ -65,7 +65,25 @@
     _scrollView.contentSize = CGSizeMake(_scrollView.frame.size.width * self.numberOfPages, _scrollView.frame.size.height);
     _pageControl.numberOfPages = self.numberOfPages;
 }
-
+- (void)removePageAtIndex:(NSUInteger)index;
+{
+    NSUInteger currentPage = self.currentPage;
+    UIView *pageContainerView = [_pageViews objectAtIndex:index];
+    [pageContainerView removeFromSuperview];
+    [_pageViews removeObjectAtIndex:index];
+    
+    _scrollView.contentSize = CGSizeMake(_scrollView.frame.size.width * self.numberOfPages, _scrollView.frame.size.height);
+    _pageControl.numberOfPages = self.numberOfPages;
+    //reset page position
+    for(int i = 0; i < self.numberOfPages;i++){
+        UIView *pageContainerView = [_pageViews objectAtIndex:index];
+        pageContainerView.frame = CGRectMake(i * _scrollView.frame.size.width, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
+    }
+    if (currentPage > index) {
+        _pageControl.currentPage =  _pageControl.currentPage - 1;
+    }
+    
+}
 - (void)scrollToPageWithIndex:(NSUInteger)pageIndex animated:(BOOL)animated
 {
     CGRect frame = _scrollView.frame;
@@ -82,6 +100,11 @@
 - (NSUInteger)numberOfPages
 {
     return _pageViews.count;
+}
+
+- (NSUInteger)currentPage
+{
+    return _pageControl.currentPage;
 }
 
 #pragma mark -
