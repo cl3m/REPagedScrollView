@@ -76,7 +76,7 @@
     _pageControl.numberOfPages = self.numberOfPages;
     //reset page position
     for(int i = 0; i < self.numberOfPages;i++){
-        UIView *pageContainerView = [_pageViews objectAtIndex:index];
+        UIView *pageContainerView = [_pageViews objectAtIndex:i];
         pageContainerView.frame = CGRectMake(i * _scrollView.frame.size.width, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
     }
     if (currentPage > index) {
