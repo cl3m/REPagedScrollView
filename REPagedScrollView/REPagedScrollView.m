@@ -37,7 +37,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height - 36)];
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _scrollView.pagingEnabled = YES;
         _scrollView.showsHorizontalScrollIndicator = NO;
@@ -45,7 +45,9 @@
         _scrollView.delegate = self;
         [self addSubview:_scrollView];
         
-        _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, frame.size.height - 36, frame.size.width, 36)];
+        float i4offset = (CGSizeEqualToSize([[UIScreen mainScreen] preferredMode].size,CGSizeMake(640, 1136)))?-41:-45;
+    
+        _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(50, frame.size.height + i4offset, frame.size.width-100, 36)];
         _pageControl.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
         [_pageControl addTarget:self action:@selector(pageControlPageDidChange:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:_pageControl];
